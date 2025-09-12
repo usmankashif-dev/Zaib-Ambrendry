@@ -15,13 +15,28 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $malls = \App\Models\Mall::latest()->get();
+    \Log::info('Fetching malls for dashboard. Count: ' . $malls->count());
+    \Log::info('Malls data:', $malls->toArray());
+    return Inertia::render('Dashboard', [
+        'malls' => $malls
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/add-mall', function () {
+        return Inertia::render('AddMallForm');
+    })->name('mall.add');
+    
+    Route::post('/add-mall', [App\Http\Controllers\MallController::class, 'store'])->name('mall.store');
+    // Delete a mall
+    Route::delete('/malls/{mall}', [App\Http\Controllers\MallController::class, 'destroy'])->name('mall.destroy');
+    // Edit routes
+    Route::get('/edit-mall/{mall}', [App\Http\Controllers\MallController::class, 'edit'])->name('mall.edit');
+    Route::patch('/edit-mall/{mall}', [App\Http\Controllers\MallController::class, 'update'])->name('mall.update');
 });
 
 require __DIR__.'/auth.php';
