@@ -8,7 +8,7 @@ export default function Dashboard({ malls }) {
         partyName: '',
         gazana: '',
         lot: '',
-        thanLength: '',
+        thanAmount: '',
         colorAmount: ''
     });
     
@@ -17,7 +17,7 @@ export default function Dashboard({ malls }) {
             (!filters.partyName || mall.partyName.toLowerCase().includes(filters.partyName.toLowerCase())) &&
             (!filters.gazana || mall.gazana.toString().includes(filters.gazana)) &&
             (!filters.lot || mall.lot.toLowerCase().includes(filters.lot.toLowerCase())) &&
-            (!filters.thanLength || mall.thanLength.toString().includes(filters.thanLength)) &&
+            (!filters.thanAmount || mall.thanAmount.toString().includes(filters.thanAmount)) &&
             (!filters.colorAmount || mall.colorAmount.toString().includes(filters.colorAmount))
         );
     });
@@ -29,19 +29,17 @@ export default function Dashboard({ malls }) {
         }));
     };
     
-    const handleDelete = async (mall) => {
+    const handleDelete = (mall) => {
         if (!confirm('Are you sure you want to delete this record?')) return;
         
-        const original = [...localMalls];
-        setLocalMalls(prev => prev.filter(m => m.id !== mall.id));
-        
-        try {
-            await axios.delete(route('mall.destroy', { mall: mall.id }));
-        } catch (error) {
-            console.error('Delete failed:', error);
-            setLocalMalls(original);
-            alert('Failed to delete. Please try again.');
-        }
+        router.delete(route('mall.destroy', { mall: mall.id }), {
+            onSuccess: () => {
+                console.log('Mall deleted successfully');
+            },
+            onError: () => {
+                alert('Failed to delete. Please try again.');
+            }
+        });
     };
 
     const handleNavigate = () => {
@@ -106,13 +104,13 @@ export default function Dashboard({ malls }) {
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                                        Than Length
+                                        Than Amount
                                     </label>
                                     <input
                                         type="text"
-                                        value={filters.thanLength}
-                                        onChange={(e) => handleSearch('thanLength', e.target.value)}
-                                        placeholder="Search by length"
+                                        value={filters.thanAmount}
+                                        onChange={(e) => handleSearch('thanAmount', e.target.value)}
+                                        placeholder="Search by than amount"
                                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 sm:text-sm"
                                     />
                                 </div>

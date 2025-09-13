@@ -48,12 +48,23 @@ class MallController extends Controller
     {
         try {
             \Log::info('Attempting to delete mall:', ['id' => $mall->id]);
+            
+            // Create history record before deletion
+            \App\Models\History::create([
+                'action' => 'delete',
+                'description' => "Deleted mall entry for {$mall->partyName}",
+                'user_name' => auth()->user()->name,
+                'model_type' => 'Mall',
+                'model_id' => $mall->id,
+                'old_data' => $mall->toArray()
+            ]);
+
             $deleted = $mall->delete();
             \Log::info('Mall deleted successfully:', ['id' => $mall->id, 'result' => $deleted]);
-            return response()->noContent();
+            return redirect()->route('dashboard')->with('success', 'Mall deleted successfully');
         } catch (\Exception $e) {
             \Log::error('Failed to delete mall: ' . $e->getMessage());
-            throw $e;
+            return back()->with('error', 'Failed to delete mall');
         }
     }
 

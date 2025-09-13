@@ -37,6 +37,10 @@ Route::middleware('auth')->group(function () {
     // Edit routes
     Route::get('/edit-mall/{mall}', [App\Http\Controllers\MallController::class, 'edit'])->name('mall.edit');
     Route::patch('/edit-mall/{mall}', [App\Http\Controllers\MallController::class, 'update'])->name('mall.update');
+
+    // History routes
+    Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
+    Route::get('/history/{history}', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
 });
 
 require __DIR__.'/auth.php';
