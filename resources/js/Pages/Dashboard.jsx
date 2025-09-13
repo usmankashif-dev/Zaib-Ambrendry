@@ -42,6 +42,10 @@ export default function Dashboard({ malls }) {
         });
     };
 
+    const handleToDesign = (mall) => {
+        router.visit(route('design.create', { mall: mall.id }));
+    };
+
     const handleNavigate = () => {
         router.visit(route('mall.add'));
     };
@@ -167,10 +171,17 @@ export default function Dashboard({ malls }) {
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(mall)}
-                                                        className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700 focus:outline-none"
+                                                        className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-red-600 rounded hover:bg-red-700 focus:outline-none mr-2"
                                                         title="Delete"
                                                     >
                                                         Delete
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleToDesign(mall)}
+                                                        className="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none"
+                                                        title="Add Design"
+                                                    >
+                                                        To Design
                                                     </button>
                                                 </td>
                                             </tr>

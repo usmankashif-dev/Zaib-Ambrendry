@@ -51,6 +51,10 @@ class Mall extends Model
         });
     }
 
+    const STATUS_PENDING = 'pending';
+    const STATUS_IN_DESIGN = 'in_design';
+    const STATUS_COMPLETED = 'completed';
+
     protected $fillable = [
         'partyName',
         'gazana',
@@ -60,7 +64,8 @@ class Mall extends Model
         'backLength',
         'dupattaLength',
         'lot',
-        'colorAmount'
+        'colorAmount',
+        'status'
     ];
 
     protected $casts = [
@@ -73,5 +78,10 @@ class Mall extends Model
     public function histories()
     {
         return $this->hasMany(History::class);
+    }
+
+    public function designs()
+    {
+        return $this->hasMany(DesignDetail::class);
     }
 }

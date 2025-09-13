@@ -15,9 +15,7 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $malls = \App\Models\Mall::latest()->get();
-    \Log::info('Fetching malls for dashboard. Count: ' . $malls->count());
-    \Log::info('Malls data:', $malls->toArray());
+    $malls = \App\Models\Mall::where('status', \App\Models\Mall::STATUS_PENDING)->latest()->get();
     return Inertia::render('Dashboard', [
         'malls' => $malls
     ]);
@@ -41,6 +39,15 @@ Route::middleware('auth')->group(function () {
     // History routes
     Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])->name('history.index');
     Route::get('/history/{history}', [App\Http\Controllers\HistoryController::class, 'show'])->name('history.show');
+
+    // Design routes
+    Route::get('/design', [App\Http\Controllers\DesignController::class, 'index'])->name('design.index');
+    Route::get('/design/{mall}/create', [App\Http\Controllers\DesignController::class, 'create'])->name('design.create');
+    Route::post('/design/{mall}', [App\Http\Controllers\DesignController::class, 'store'])->name('design.store');
+    Route::get('/design/{design}/edit', [App\Http\Controllers\DesignController::class, 'edit'])->name('design.edit');
+    Route::patch('/design/{design}', [App\Http\Controllers\DesignController::class, 'update'])->name('design.update');
+    Route::post('/design/{design}/return', [App\Http\Controllers\DesignController::class, 'return'])->name('design.return');
+    Route::delete('/design/{design}', [App\Http\Controllers\DesignController::class, 'destroy'])->name('design.destroy');
 });
 
 require __DIR__.'/auth.php';
