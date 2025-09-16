@@ -16,8 +16,10 @@ class History extends Model
         'model_type',
         'model_id',
         'mall_id',
+        'design_id',
         'old_data',
-        'new_data'
+        'new_data',
+        'data'
     ];
 
     protected $casts = [

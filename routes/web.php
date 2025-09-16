@@ -48,6 +48,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/design/{design}', [App\Http\Controllers\DesignController::class, 'update'])->name('design.update');
     Route::post('/design/{design}/return', [App\Http\Controllers\DesignController::class, 'return'])->name('design.return');
     Route::delete('/design/{design}', [App\Http\Controllers\DesignController::class, 'destroy'])->name('design.destroy');
+
+    // Machine routes
+    Route::get('/machine', [App\Http\Controllers\MachineController::class, 'index'])->name('machine.index');
+    Route::get('/machine/create/{design}', [App\Http\Controllers\MachineController::class, 'create'])->name('machine.create');
+    Route::post('/machine/{design}', [App\Http\Controllers\MachineController::class, 'store'])->name('machine.store');
+    Route::get('/machine/{machine}/edit', [App\Http\Controllers\MachineController::class, 'edit'])->name('machine.edit');
+    Route::patch('/machine/{machine}', [App\Http\Controllers\MachineController::class, 'update'])->name('machine.update');
+    Route::delete('/machine/{machine}', [App\Http\Controllers\MachineController::class, 'destroy'])->name('machine.destroy');
 });
 
 require __DIR__.'/auth.php';

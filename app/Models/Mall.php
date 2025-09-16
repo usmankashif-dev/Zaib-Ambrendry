@@ -53,6 +53,7 @@ class Mall extends Model
 
     const STATUS_PENDING = 'pending';
     const STATUS_IN_DESIGN = 'in_design';
+    const STATUS_IN_MACHINE = 'in_machine';
     const STATUS_COMPLETED = 'completed';
 
     protected $fillable = [

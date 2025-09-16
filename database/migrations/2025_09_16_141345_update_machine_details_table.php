@@ -8,9 +8,11 @@ return new class extends Migration
 {
     public function up()
     {
+        Schema::dropIfExists('machine_details');
+        
         Schema::create('machine_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('design_id')->constrained('design_details')->onDelete('cascade');
+            $table->foreignId('design_id')->constrained('design_details');
             $table->string('employee_name');
             $table->timestamp('production_time');
             $table->timestamps();
@@ -20,5 +22,13 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('machine_details');
+        
+        Schema::create('machine_details', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('mall_id')->constrained()->onDelete('cascade');
+            $table->string('design_number');
+            $table->integer('stitch_amount');
+            $table->timestamps();
+        });
     }
 };

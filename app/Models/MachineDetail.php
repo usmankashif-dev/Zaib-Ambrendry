@@ -7,13 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 class MachineDetail extends Model
 {
     protected $fillable = [
-        'mall_id',
-        'design_number',
-        'stitch_amount'
+        'design_id',
+        'employee_name',
+        'production_time'
     ];
 
-    public function mall()
+    protected $casts = [
+        'production_time' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
+
+    public function design()
     {
-        return $this->belongsTo(Mall::class);
+        return $this->belongsTo(DesignDetail::class, 'design_id');
     }
 }

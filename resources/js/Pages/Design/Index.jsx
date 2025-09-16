@@ -155,26 +155,32 @@ export default function Design({ auth, designs = [], success }) {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm">
-                                                    <div className="flex space-x-2">
-                                                        <button
-                                                            onClick={() => router.get(route('design.edit', design.id))}
-                                                            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md"
-                                                        >
-                                                            Edit
-                                                        </button>
-                                                        <button
-                                                            onClick={() => router.post(route('design.return', design.id))}
-                                                            className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md"
-                                                        >
-                                                            Return
-                                                        </button>
-                                                        <button
-                                                            onClick={() => handleDelete(design.id)}
-                                                            className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md"
-                                                        >
-                                                            Delete
-                                                        </button>
-                                                    </div>
+                                                        <div className="flex space-x-2">
+                                                            <button
+                                                                onClick={() => router.get(route('design.edit', design.id))}
+                                                                className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md"
+                                                            >
+                                                                Edit
+                                                            </button>
+                                                            <button
+                                                                onClick={() => router.post(route('design.return', design.id))}
+                                                                className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md"
+                                                            >
+                                                                Return
+                                                            </button>
+                                                            <button
+                                                                onClick={() => handleDelete(design.id)}
+                                                                className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md"
+                                                            >
+                                                                Delete
+                                                            </button>
+                                                            <button
+                                                                onClick={() => router.get(route('machine.create', design.id))}
+                                                                className="inline-flex items-center px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white text-sm font-medium rounded-md"
+                                                            >
+                                                                To Machine
+                                                            </button>
+                                                        </div>
                                                 </td>
                                             </tr>
                                         ))}

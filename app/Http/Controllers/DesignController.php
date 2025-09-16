@@ -13,9 +13,10 @@ class DesignController extends Controller
 {
     public function index()
     {
-        $designs = DesignDetail::with(['mall' => function($query) {
-            $query->where('status', Mall::STATUS_IN_DESIGN);
-        }])->latest()->get();
+        $designs = DesignDetail::with('mall')
+            ->where('status', DesignDetail::STATUS_ACTIVE)
+            ->latest()
+            ->get();
 
         return Inertia::render('Design/Index', [
             'designs' => $designs->map(function($design) {
