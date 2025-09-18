@@ -56,6 +56,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/machine/{machine}/edit', [App\Http\Controllers\MachineController::class, 'edit'])->name('machine.edit');
     Route::patch('/machine/{machine}', [App\Http\Controllers\MachineController::class, 'update'])->name('machine.update');
     Route::delete('/machine/{machine}', [App\Http\Controllers\MachineController::class, 'destroy'])->name('machine.destroy');
+
+    // Bill routes
+    Route::get('/bill', [App\Http\Controllers\BillController::class, 'index'])->name('bill.index');
+    Route::get('/bill/create/{machine}', [App\Http\Controllers\BillController::class, 'create'])->name('bill.create');
+    Route::post('/bill/{machine}', [App\Http\Controllers\BillController::class, 'store'])->name('bill.store');
+    Route::get('/bill/{bill}/edit', [App\Http\Controllers\BillController::class, 'edit'])->name('bill.edit');
+    Route::patch('/bill/{bill}', [App\Http\Controllers\BillController::class, 'update'])->name('bill.update');
+    Route::delete('/bill/{bill}', [App\Http\Controllers\BillController::class, 'destroy'])->name('bill.destroy');
 });
 
 require __DIR__.'/auth.php';

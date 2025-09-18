@@ -1,21 +1,22 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, router } from '@inertiajs/react';
 import { useState } from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
 
-export default function Machine({ auth, machines = [], success }) {
+export default function Index({ auth, bills = [] }) {
     const [filters, setFilters] = useState({
         partyName: '',
         designNumber: '',
         employeeName: '',
-        lot: '',
+        lot: ''
     });
 
-    const filteredMachines = machines.filter(machine => {
+    const filteredBills = bills.filter(bill => {
         return (
-            (!filters.partyName || machine.design?.mall?.partyName?.toLowerCase().includes(filters.partyName.toLowerCase())) &&
-            (!filters.designNumber || machine.design?.design_number?.toString().includes(filters.designNumber)) &&
-            (!filters.employeeName || machine.employee_name?.toLowerCase().includes(filters.employeeName.toLowerCase())) &&
-            (!filters.lot || machine.design?.mall?.lot?.toLowerCase().includes(filters.lot.toLowerCase()))
+            (!filters.partyName || bill.machine?.design?.mall?.partyName?.toLowerCase().includes(filters.partyName.toLowerCase())) &&
+            (!filters.designNumber || bill.machine?.design?.design_number?.toString().includes(filters.designNumber)) &&
+            (!filters.employeeName || bill.machine?.employee_name?.toLowerCase().includes(filters.employeeName.toLowerCase())) &&
+            (!filters.lot || bill.machine?.design?.mall?.lot?.toLowerCase().includes(filters.lot.toLowerCase()))
         );
     });
 
@@ -25,27 +26,15 @@ export default function Machine({ auth, machines = [], success }) {
             [field]: value
         }));
     };
-
-    const handleDelete = (id) => {
-        if (confirm('Are you sure you want to delete this machine record?')) {
-            router.delete(route('machine.destroy', id));
-        }
-    };
-
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Machine Details</h2>}
+            header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">Bills</h2>}
         >
-            <Head title="Machine Details" />
+            <Head title="Bills" />
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    {success && (
-                        <div className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-                            <span className="block sm:inline">{success}</span>
-                        </div>
-                    )}
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
                             {/* Search Forms */}
@@ -99,75 +88,72 @@ export default function Machine({ auth, machines = [], success }) {
                                     />
                                 </div>
                             </div>
+
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead className="bg-gray-50 dark:bg-gray-700">
                                         <tr>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Party Details</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Design Info</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Production Details</th>
-                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Additional Info</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Bill Details</th>
+                                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Machine Details</th>
                                             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody className="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-800">
-                                        {filteredMachines.map((machine) => (
-                                            <tr key={machine.id}>
+                                        {filteredBills.map((bill) => (
+                                            <tr key={bill.id}>
                                                 <td className="px-6 py-4 text-sm">
                                                     <div className="space-y-1">
-                                                        <p><span className="font-medium">Party:</span> {machine.design?.mall?.partyName}</p>
-                                                        <p><span className="font-medium">Gazana:</span> {machine.design?.mall?.gazana}</p>
-                                                        <p><span className="font-medium">Than Amount:</span> {machine.design?.mall?.thanAmount}</p>
+                                                        <p><span className="font-medium">Party:</span> {bill.machine?.design?.mall?.partyName}</p>
+                                                        <p><span className="font-medium">Lot:</span> {bill.machine?.design?.mall?.lot}</p>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm">
                                                     <div className="space-y-1">
-                                                        <p><span className="font-medium">Design Number:</span> {machine.design?.design_number}</p>
-                                                        <p><span className="font-medium">Stitch Amount:</span> {machine.design?.stitch_amount}</p>
+                                                        <p><span className="font-medium">Design Number:</span> {bill.machine?.design?.design_number}</p>
+                                                        <p><span className="font-medium">Stitch Amount:</span> {bill.machine?.design?.stitch_amount}</p>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm">
                                                     <div className="space-y-1">
-                                                        <p><span className="font-medium">Employee:</span> {machine.employee_name}</p>
-                                                        <p><span className="font-medium">Production Time:</span> {machine.formatted_production_time}</p>
-                                                        <p><span className="font-medium">Added:</span> {machine.formatted_created_at}</p>
+                                                        <p><span className="font-medium">Than Amount:</span> {bill.than_amount}</p>
+                                                        <p><span className="font-medium">Bill Amount:</span> Rs. {bill.bill_amount}</p>
+                                                        <p><span className="font-medium">Return Time:</span> {new Date(bill.return_time).toLocaleString()}</p>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm">
                                                     <div className="space-y-1">
-                                                        <p><span className="font-medium">Lot:</span> {machine.design?.mall?.lot}</p>
-                                                        <p><span className="font-medium">Color Amount:</span> {machine.design?.mall?.colorAmount}</p>
-                                                        <p><span className="font-medium">Than Remaining:</span> {machine.than_remaining}</p>
+                                                        <p><span className="font-medium">Employee:</span> {bill.machine?.employee_name}</p>
+                                                        <p><span className="font-medium">Production Time:</span> {new Date(bill.machine?.production_time).toLocaleString()}</p>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm">
                                                     <div className="flex space-x-2">
                                                         <button
-                                                            onClick={() => router.get(route('machine.edit', machine.id))}
-                                                            className="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-md"
+                                                            onClick={() => router.visit(route('bill.edit', bill.id))}
+                                                            className="inline-flex items-center p-2 text-blue-600 hover:bg-blue-100 rounded-lg dark:text-blue-400 dark:hover:bg-blue-700"
                                                         >
-                                                            Edit
+                                                            <FaEdit className="w-5 h-5" />
                                                         </button>
                                                         <button
-                                                            onClick={() => handleDelete(machine.id)}
-                                                            className="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md"
+                                                            onClick={() => {
+                                                                if (confirm('Are you sure you want to delete this bill?')) {
+                                                                    router.delete(route('bill.destroy', bill.id));
+                                                                }
+                                                            }}
+                                                            className="inline-flex items-center p-2 text-red-600 hover:bg-red-100 rounded-lg dark:text-red-400 dark:hover:bg-red-700"
                                                         >
-                                                            Delete
-                                                        </button>
-                                                        <button
-                                                            onClick={() => router.get(route('bill.create', machine.id))}
-                                                            className="inline-flex items-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-md"
-                                                        >
-                                                            To Bill
+                                                            <FaTrash className="w-5 h-5" />
                                                         </button>
                                                     </div>
                                                 </td>
                                             </tr>
                                         ))}
-                                        {(!filteredMachines || filteredMachines.length === 0) && (
+                                        {(!bills || bills.length === 0) && (
                                             <tr>
-                                                <td colSpan="5" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
-                                                    No machine records found.
+                                                <td colSpan="4" className="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                                                    No bills found.
                                                 </td>
                                             </tr>
                                         )}

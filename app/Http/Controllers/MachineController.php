@@ -60,6 +60,7 @@ class MachineController extends Controller
             // Create machine record
             $machine = new MachineDetail($validated);
             $machine->design_id = $design->id;
+            $machine->than_remaining = $design->mall->thanAmount; // Set initial than_remaining
             $machine->save();
 
             // Create a history record
