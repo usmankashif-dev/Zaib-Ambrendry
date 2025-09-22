@@ -313,4 +313,21 @@ class BillController extends Controller
             return back()->withErrors(['error' => 'Failed to delete bill: ' . $e->getMessage()]);
         }
     }
+
+    public function invoice(Bill $bill)
+    {
+        $bill->load(['machine.design.mall', 'snapshot.design.mall']);
+        $machineData = $bill->machine ?? $bill->snapshot;
+        $design = $machineData?->design;
+        $mall = $design?->mall;
+
+        // You can add more logic here to fetch items, remarks, balances, etc.
+        return Inertia::render('Bill/Invoice', [
+            'bill' => $bill,
+            'machine' => $machineData,
+            'design' => $design,
+            'mall' => $mall,
+            // Add more data as needed for the invoice
+        ]);
+    }
 }

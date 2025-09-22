@@ -54,6 +54,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 >
                                     Bill
                                 </NavLink>
+                                <NavLink
+                                    href={route('invoice.create')}
+                                    active={route().current('invoice.*')}
+                                >
+                                    Invoice
+                                </NavLink>
                             </div>
                         </div>
 
@@ -181,6 +187,12 @@ export default function AuthenticatedLayout({ header, children }) {
                             active={route().current('bill.*')}
                         >
                             Bill
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('invoice.create')}
+                            active={route().current('invoice.*')}
+                        >
+                            Invoice
                         </ResponsiveNavLink>
                     </div>
 

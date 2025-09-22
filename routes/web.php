@@ -64,6 +64,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/bill/{bill}/edit', [App\Http\Controllers\BillController::class, 'edit'])->name('bill.edit');
     Route::patch('/bill/{bill}', [App\Http\Controllers\BillController::class, 'update'])->name('bill.update');
     Route::delete('/bill/{bill}', [App\Http\Controllers\BillController::class, 'destroy'])->name('bill.destroy');
+    Route::get('/bill/{bill}/invoice', [App\Http\Controllers\BillController::class, 'invoice'])->name('bill.invoice');
+    
+    // Invoice routes
+    Route::get('/invoice', [App\Http\Controllers\InvoiceController::class, 'create'])->name('invoice.create');
+    Route::post('/invoice', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
 });
 
 require __DIR__.'/auth.php';
