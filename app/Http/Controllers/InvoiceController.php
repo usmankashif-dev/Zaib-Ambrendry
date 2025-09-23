@@ -14,20 +14,38 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'lot' => 'required|string',
-            'itemName' => 'required|string',
-            'designNumber' => 'required|string',
-            'shape' => 'required|string',
-            'quantity' => 'required|numeric',
-            'stitches' => 'required|numeric',
-            'headLength' => 'required|numeric',
-            'ratePerThousandStitch' => 'required|numeric',
-            'rateValue' => 'required|numeric',
-        ]);
+        try {
+            $data = $request->validate([
+                'partyName' => 'nullable|string',
+                'previousBalance' => 'nullable|numeric',
+                'remarks' => 'nullable|string',
+                'rows' => 'required|array|min:1',
+                'rows.*.lot' => 'required|string',
+                'rows.*.itemName' => 'required|string',
+                'rows.*.designNumber' => 'required|string',
+                'rows.*.shape' => 'required|string',
+                'rows.*.quantity' => 'required|numeric',
+                'rows.*.stitches' => 'required|numeric',
+                'rows.*.headLength' => 'required|numeric',
+                'rows.*.ratePerThousandStitch' => 'required|numeric',
+                'rows.*.rateValue' => 'required|numeric',
+                'rows.*.than' => 'nullable|numeric',
+                'rows.*.rate' => 'nullable|numeric',
+            ]);
 
-        return Inertia::render('Invoice/Invoice', [
-            'invoiceData' => $data
-        ]);
+            // Get the next invoice number
+            $invoiceNo = time();
+            $data['invoiceNo'] = $invoiceNo;
+            $data['rate'] = $data['rate'] ?? 0;
+
+            \Log::info('Invoice data received', ['data' => $data]);
+
+            return Inertia::render('Invoice/Invoice', [
+                'invoiceData' => $data
+            ]);
+        } catch (\Exception $e) {
+            \Log::error('Invoice creation failed', ['error' => $e->getMessage()]);
+            return back()->withErrors(['error' => 'Failed to create invoice. ' . $e->getMessage()]);
+        }
     }
 }
