@@ -7,44 +7,49 @@ export default function Invoice({ invoiceData }) {
     year: 'numeric'
   });
     return (
-        <div className="w-full max-w-4xl mx-auto bg-white border border-gray-300 shadow p-6 text-sm font-sans">
+        <div className="w-full max-w-4xl mx-auto bg-white border border-gray-300 shadow p-4 text-sm font-sans print:shadow-none print:border-none">
             {/* Header */}
-            <div className="flex justify-between items-start border-b pb-4">
-                <div>
-                    <h1 className="text-xl font-bold">Zaib Embroidery</h1>
-                    <p className="text-xs">Nishat Abad near Total pump 
+            <div className="border-b pb-2">
+                <div className="text-center mb-2">
+                    <h1 className="text-4xl">Zaib Embroidery</h1>
+;
+                    <p className="text-xs mt-1">Nishat Abad near Total pump 
 Faisalabad</p>
                     <p className="text-xs">Phone(s): +92 322 7832249</p>
                 </div>
-                <div className="text-right">
-                    <span className="border px-3 py-1 rounded text-blue-600 font-semibold text-sm">
+                
+                <div className="text-center mb-3">
+                    <span className="border-2 px-6 py-1 rounded text-blue-600 font-semibold text-sm">
                         Sales Invoice
                     </span>
-                    <p className="mt-4 text-xs">DATE: <span className="font-semibold">{currentDate}</span></p>
                 </div>
-            </div>
 
-            {/* Invoice + Party */}
-            <div className="flex justify-between mt-2 mb-4">
-                <p className="text-xs">INVOICE NO: <span className="font-semibold">{invoiceData.invoiceNo || '-'}</span></p>
-                <p className="text-xs">PARTY NAME: <span className="font-semibold">{invoiceData.partyName || '-'}</span></p>
+                <div className="flex justify-between items-start px-2">
+                    <div>
+                        <p className="text-xs">INVOICE NO: <span className="font-semibold">{invoiceData.invoiceNo || '-'}</span></p>
+                        <p className="text-xs mt-1">PARTY NAME: <span className="font-semibold">{invoiceData.partyName || '-'}</span></p>
+                    </div>
+                    <div>
+                        <p className="text-xs">DATE: <span className="font-semibold">{currentDate}</span></p>
+                    </div>
+                </div>
             </div>
 
             {/* Table */}
             <table className="w-full border border-collapse text-xs">
                 <thead>
-                    <tr className="bg-gray-100 text-center">
-                        <th className="border p-1">Lot</th>
-                        <th className="border p-1">Item Name</th>
-                        <th className="border p-1">Design #</th>
-                        <th className="border p-1">Shape</th>
-                        <th className="border p-1">Than</th>
-                        <th className="border p-1">Qty</th>
-                        <th className="border p-1">Stitches</th>
-                        <th className="border p-1">Head Length</th>
-                        <th className="border p-1">Rate/1000 Stitch</th>
-                        <th className="border p-1">Rate</th>
-                        <th className="border p-1">Value</th>
+                    <tr className="bg-gray-100 text-center print:bg-gray-100">
+                        <th className="border p-0.5">Lot</th>
+                        <th className="border p-0.5">Item Name</th>
+                        <th className="border p-0.5">Design #</th>
+                        <th className="border p-0.5">Shape</th>
+                        <th className="border p-0.5">Than</th>
+                        <th className="border p-0.5">Qty</th>
+                        <th className="border p-0.5">Stitches</th>
+                        <th className="border p-0.5">Head Length</th>
+                        <th className="border p-0.5">Rate/1000</th>
+                        <th className="border p-0.5">Rate</th>
+                        <th className="border p-0.5">Value</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -25,40 +25,54 @@ export default function AuthenticatedLayout({ header, children }) {
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route('dashboard')}
-                                    active={route().current('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <NavLink
-                                    href={route('history.index')}
-                                    active={route().current('history.index')}
-                                >
-                                    History
-                                </NavLink>
-                                <NavLink
-                                    href={route('design.index')}
-                                    active={route().current('design.*')}
-                                >
-                                    Design
-                                </NavLink>
-                                <NavLink
-                                    href={route('machine.index')}
-                                    active={route().current('machine.*')}
-                                >
-                                    Machine
-                                </NavLink>
-                                <NavLink
-                                    href={route('bill.index')}
-                                    active={route().current('bill.*')}
-                                >
-                                    Bill
-                                </NavLink>
-                                <NavLink
                                     href={route('invoice.create')}
                                     active={route().current('invoice.*')}
                                 >
                                     Invoice
+                                </NavLink>
+                                <NavLink
+                                    href={route('items.new')}
+                                    active={route().current('items.new')}
+                                >
+                                    New Item
+                                </NavLink>
+                                <NavLink
+                                    href={route('items.history')}
+                                    active={route().current('items.history')}
+                                >
+                                    Items History
+                                </NavLink>
+
+                                {/* Employee Management Navigation Links */}
+                                <NavLink
+                                    href={route('employees.index')}
+                                    active={route().current('employees.*')}
+                                >
+                                    Employees
+                                </NavLink>
+                                <NavLink
+                                    href={route('attendance.index')}
+                                    active={route().current('attendance.*')}
+                                >
+                                    Attendance
+                                </NavLink>
+                                <NavLink
+                                    href={route('bonuses.index')}
+                                    active={route().current('bonuses.*')}
+                                >
+                                    Bonuses
+                                </NavLink>
+                                <NavLink
+                                    href={route('salaries.index')}
+                                    active={route().current('salaries.*')}
+                                >
+                                    Payroll
+                                </NavLink>
+                                <NavLink
+                                    href={route('salary-transactions.index')}
+                                    active={route().current('salary-transactions.*')}
+                                >
+                                    Salary Transactions
                                 </NavLink>
                             </div>
                         </div>
@@ -159,40 +173,48 @@ export default function AuthenticatedLayout({ header, children }) {
                 >
                     <div className="space-y-1 pb-3 pt-2">
                         <ResponsiveNavLink
-                            href={route('dashboard')}
-                            active={route().current('dashboard')}
-                        >
-                            Dashboard
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('history.index')}
-                            active={route().current('history.index')}
-                        >
-                            History
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('design.index')}
-                            active={route().current('design.*')}
-                        >
-                            Design
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('machine.index')}
-                            active={route().current('machine.*')}
-                        >
-                            Machine
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route('bill.index')}
-                            active={route().current('bill.*')}
-                        >
-                            Bill
-                        </ResponsiveNavLink>
-                        <ResponsiveNavLink
                             href={route('invoice.create')}
                             active={route().current('invoice.*')}
                         >
                             Invoice
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('items.new')}
+                            active={route().current('items.new')}
+                        >
+                            New Item
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('items.history')}
+                            active={route().current('items.history')}
+                        >
+                            Items History
+                        </ResponsiveNavLink>
+
+                        {/* Employee Management Responsive Navigation Links */}
+                        <ResponsiveNavLink
+                            href={route('employees.index')}
+                            active={route().current('employees.*')}
+                        >
+                            Employees
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('attendance.index')}
+                            active={route().current('attendance.*')}
+                        >
+                            Attendance
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('bonuses.index')}
+                            active={route().current('bonuses.*')}
+                        >
+                            Bonuses
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink
+                            href={route('salaries.index')}
+                            active={route().current('salaries.*')}
+                        >
+                            Payroll
                         </ResponsiveNavLink>
                     </div>
 

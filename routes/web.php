@@ -5,6 +5,10 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+// Item Names API
+Route::get('/api/item-names', [App\Http\Controllers\ItemNameController::class, 'index'])->middleware('auth');
+Route::post('/api/item-names', [App\Http\Controllers\ItemNameController::class, 'store'])->middleware('auth');
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -69,6 +73,50 @@ Route::middleware('auth')->group(function () {
     // Invoice routes
     Route::get('/invoice', [App\Http\Controllers\InvoiceController::class, 'create'])->name('invoice.create');
     Route::post('/invoice', [App\Http\Controllers\InvoiceController::class, 'store'])->name('invoice.store');
+
+    // Items routes
+    Route::get('/items/new', function() {
+        return Inertia::render('Items/NewItem', [
+            'itemNames' => \App\Models\ItemName::orderBy('name')->get()
+        ]);
+    })->name('items.new');
+    
+    Route::post('/items', [App\Http\Controllers\ItemController::class, 'store'])->name('items.store');
+    Route::get('/items/history', [App\Http\Controllers\ItemController::class, 'index'])->name('items.history');
+
+    // Employee Management Routes
+    Route::get('/employees', [App\Http\Controllers\EmployeeController::class, 'index'])->name('employees.index');
+    Route::get('/employees/create', [App\Http\Controllers\EmployeeController::class, 'create'])->name('employees.create');
+    Route::post('/employees', [App\Http\Controllers\EmployeeController::class, 'store'])->name('employees.store');
+    Route::get('/employees/{employee}/edit', [App\Http\Controllers\EmployeeController::class, 'edit'])->name('employees.edit');
+    Route::patch('/employees/{employee}', [App\Http\Controllers\EmployeeController::class, 'update'])->name('employees.update');
+    Route::delete('/employees/{employee}', [App\Http\Controllers\EmployeeController::class, 'destroy'])->name('employees.destroy');
+    Route::get('/employees/{employee}/attendance', [App\Http\Controllers\EmployeeController::class, 'attendanceHistory'])->name('employees.attendance');
+
+    // Attendance Routes
+    Route::get('/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('attendance.index');
+    Route::get('/attendance/create', [App\Http\Controllers\AttendanceController::class, 'create'])->name('attendance.create');
+    Route::post('/attendance', [App\Http\Controllers\AttendanceController::class, 'store'])->name('attendance.store');
+    Route::post('/attendance/check-in/{employee}', [App\Http\Controllers\AttendanceController::class, 'checkIn'])->name('attendance.checkIn');
+    Route::post('/attendance/check-out/{employee}', [App\Http\Controllers\AttendanceController::class, 'checkOut'])->name('attendance.checkOut');
+    Route::get('/attendance/history', [App\Http\Controllers\AttendanceController::class, 'history'])->name('attendance.history');
+
+    // Bonus Routes
+    Route::get('/bonuses', [App\Http\Controllers\BonusController::class, 'index'])->name('bonuses.index');
+    Route::get('/bonuses/create', [App\Http\Controllers\BonusController::class, 'create'])->name('bonuses.create');
+    Route::post('/bonuses', [App\Http\Controllers\BonusController::class, 'store'])->name('bonuses.store');
+    Route::delete('/bonuses/{bonus}', [App\Http\Controllers\BonusController::class, 'destroy'])->name('bonuses.destroy');
+
+    // Salary Routes
+    Route::get('/salaries', [App\Http\Controllers\SalaryController::class, 'index'])->name('salaries.index');
+    Route::get('/salaries/generate', [App\Http\Controllers\SalaryController::class, 'generate'])->name('salaries.generate');
+    Route::post('/salaries/process', [App\Http\Controllers\SalaryController::class, 'process'])->name('salaries.process');
+    Route::get('/salaries/history', [App\Http\Controllers\SalaryController::class, 'history'])->name('salaries.history');
+
+    // Salary Transactions Routes
+    Route::get('/salary-transactions', [App\Http\Controllers\SalaryTransactionController::class, 'index'])->name('salary-transactions.index');
+    Route::get('/salary-transactions/create', [App\Http\Controllers\SalaryTransactionController::class, 'create'])->name('salary-transactions.create');
+    Route::post('/salary-transactions', [App\Http\Controllers\SalaryTransactionController::class, 'store'])->name('salary-transactions.store');
 });
 
 require __DIR__.'/auth.php';
