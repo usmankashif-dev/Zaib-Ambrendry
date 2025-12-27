@@ -131,6 +131,25 @@ export default function Dashboard({ malls }) {
                                     />
                                 </div>
                             </div>
+
+                            {/* Quick links row */}
+                            <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div className="p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm flex items-center justify-between">
+                                    <div>
+                                        <div className="text-sm font-medium text-gray-500 dark:text-gray-200">Empty Page</div>
+                                        <div className="text-xs text-gray-400">Placeholder page for development</div>
+                                    </div>
+                                    <div>
+                                        <button
+                                            onClick={() => router.visit(route('empty.page'))}
+                                            className="px-3 py-1 bg-indigo-600 text-white rounded-md hover:bg-indigo-700"
+                                        >
+                                            Open
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div className="overflow-x-auto">
                                 <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                                     <thead className="bg-gray-50 dark:bg-gray-700">

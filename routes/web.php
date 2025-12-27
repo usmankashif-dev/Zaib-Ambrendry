@@ -117,6 +117,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/salary-transactions', [App\Http\Controllers\SalaryTransactionController::class, 'index'])->name('salary-transactions.index');
     Route::get('/salary-transactions/create', [App\Http\Controllers\SalaryTransactionController::class, 'create'])->name('salary-transactions.create');
     Route::post('/salary-transactions', [App\Http\Controllers\SalaryTransactionController::class, 'store'])->name('salary-transactions.store');
+    // Empty placeholder page
+    Route::get('/empty', function () {
+        return Inertia::render('EmptyPage');
+    })->name('empty.page');
 });
 
 require __DIR__.'/auth.php';
