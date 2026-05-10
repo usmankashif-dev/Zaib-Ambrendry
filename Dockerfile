@@ -49,9 +49,10 @@ RUN cp .env.example .env && \
     php artisan key:generate --force
 
 # Storage + permissions
-RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache && \
-    chown -R www-data:www-data storage bootstrap/cache && \
-    chmod -R 775 storage bootstrap/cache
+RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache database && \
+    touch database/database.sqlite && \
+    chown -R www-data:www-data storage bootstrap/cache database && \
+    chmod -R 775 storage bootstrap/cache database
 
 # Nginx + supervisor
 COPY docker/nginx.conf /etc/nginx/sites-available/default
