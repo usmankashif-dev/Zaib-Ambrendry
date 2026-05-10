@@ -3,11 +3,10 @@ services:
     name: zaib-ambrendry
     env: php
     plan: free
-    buildCommand: composer install --no-dev && npm install && npm run build
+    buildCommand: composer install --no-dev && npm install && npm run build && touch database/database.sqlite && php artisan migrate --force --no-interaction
     startCommand: vendor/bin/heroku-php-apache2 public/
     envVars:
       - key: APP_ENV
         value: production
       - key: APP_DEBUG
         value: false
-    postDeploy: php artisan migrate --force
